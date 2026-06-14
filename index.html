@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Restro 53 — Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#ffffff;
+  --off:#FAF2DF;
+  --gray50:#f5f5f4;
+  --gray100:#e7e5e4;
+  --gray300:#a8a29e;
+  --gray500:#78716c;
+  --gray700:#44403c;
+  --black:#1c1917;
+  --accent:#292524;
+  --gold:#d97706;
+  --gold-light:#fef3c7;
+  --gold-bg:#fffbeb;
+  --red:#dc2626;
+  --green:#16a34a;
+  --orange:#ea580c;
+  --primary:#0f172a;
+  --primary-light:#f1f5f9;
+  --accent-soft:#6366f1;
+  --radius:16px;
+  --shadow:0 1px 3px rgba(0,0,0,0.08),0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md:0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg:0 10px 40px rgba(0,0,0,0.12);
+  /* 3D Animation Variables */
+  --mzaC-fg: #e7ecf2;
+  --mzaC-accent: #9ef7d2;
+  --mzaC-accent2: #82a0ff;
+  --mzaC-glass: rgba(255, 255, 255, 0.06);
+  --mzaC-glow: rgba(130, 160, 255, 0.75);
+  --leaf:#5D6740;
+}
+body{font-family:'Inter',sans-serif;background:var(--off);color:var(--black);min-height:100vh;-webkit-font-smoothing:antialiased}
+.serif{font-family:'DM Serif Display',serif}
+
+/* ── CUSTOMER VIEW ── */
+#customer-view{display:block}
+#admin-view{display:none}
+
+/* Header */
+.site-header{background:linear-gradient(180deg,var(--leaf) 0%,#7A8A5A 100%);border-bottom:1px solid var(--gray100);padding:0 1rem;position:sticky;top:0;z-index:100;box-shadow:var(--shadow-md);transition:all 0.3s ease}
+.header-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:center;height:110px;flex-direction:column;padding:1rem 0;transition:all 0.3s ease}
+.logo-area{text-align:center;display:flex;flex-direction:row;align-items:center;gap:1.5rem;justify-content:center;transition:all 0.3s ease}
+.logo-img{width:100px;height:auto;max-height:100px;object-fit:contain;transition:all 0.3s ease;opacity:0.85;mix-blend-mode:multiply}
+.logo-text{text-align:left;display:flex;flex-direction:column;gap:0.25rem;transition:all 0.3s ease}
+.logo-area h1{font-size:2.8rem;font-weight:900;letter-spacing:-0.03em;color:var(--black);background:linear-gradient(135deg,var(--black) 0%,var(--gray700) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:0;transition:all 0.3s ease;text-shadow:0 2px 4px rgba(0,0,0,0.1)}
+.logo-area span{font-size:0.85rem;color:var(--gray500);letter-spacing:0.1em;text-transform:uppercase;display:block;font-weight:500;transition:opacity 0.3s ease}
+.header-badge{background:linear-gradient(135deg,var(--gold) 0%,#b45309 100%);color:var(--white);font-size:0.65rem;font-weight:600;padding:4px 12px;border-radius:999px;letter-spacing:0.05em;box-shadow:0 2px 8px rgba(217,119,6,0.25);transition:opacity 0.3s ease}
+.site-header.scrolled{background:rgba(255,255,255,0.95);backdrop-filter:blur(10px)}
+.site-header.scrolled .logo-area span{opacity:0}
+.site-header.scrolled .header-badge{opacity:0}
+.site-header.scrolled .header-inner{height:70px}
+.site-header.scrolled .logo-img{width:60px;max-height:60px}
+.site-header.scrolled .logo-area h1{font-size:1.8rem}
+
+/* Search */
+.search-bar{background:var(--white);border-bottom:1px solid var(--gray100);padding:1rem 1rem 0.75rem}
+.search-bar-inner{max-width:1000px;margin:0 auto;position:relative}
+.search-bar input{width:100%;padding:0.85rem 1.25rem 0.85rem 3rem;border:2px solid var(--gray100);border-radius:14px;font-size:0.95rem;font-family:'Inter',sans-serif;background:var(--gray50);color:var(--black);outline:none;transition:all 0.25s ease}
+.search-bar input:focus{border-color:var(--accent-soft);background:var(--white);box-shadow:0 0 0 4px rgba(99,102,241,0.1)}
+.search-bar svg{position:absolute;left:1.1rem;top:50%;transform:translateY(-50%);color:var(--gray300);pointer-events:none;transition:color 0.25s}
+.search-bar input:focus + svg{color:var(--accent-soft)}
+
+/* ── BTN-GROUP SYSTEM (applied to all buttons) ── */
+/* Core neumorphic shadow shared by every group */
+.btn-group {
+  display: inline-flex;
+  border-radius: 1rem;
+  box-shadow:
+    -2.3px -2.3px 3.8px rgba(255,255,255,0.55),
+    -6.3px -6.3px 10.6px rgba(255,255,255,0.4),
+    -15.1px -15.1px 25.6px rgba(255,255,255,0.3),
+    2.3px 2.3px 3.8px rgba(0,0,0,0.024),
+    6.3px 6.3px 10.6px rgba(0,0,0,0.035),
+    15.1px 15.1px 25.6px rgba(0,0,0,0.046),
+    50px 50px 85px rgba(0,0,0,0.07);
+  overflow: hidden;
+}
+
+/* Base item — all buttons inherit this */
+.btn-group__item {
+  font-family: 'Nunito Sans', 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border: none;
+  min-width: 5rem;
+  padding: 0.65rem 1.25rem;
+  background-color: #eee;
+  color: #333;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+  box-shadow: inset 0px 0px 0px -15px rebeccapurple;
+  transition: all 300ms ease-out;
+  white-space: nowrap;
+}
+.btn-group__item:first-child {
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+.btn-group__item:last-child {
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+.btn-group__item:only-child {
+  border-radius: 1rem;
+}
+.btn-group__item:hover,
+.btn-group__item:focus {
+  color: rebeccapurple;
+  box-shadow: inset 0px -20px 0px -15px rebeccapurple;
+  outline: none;
+}
+.btn-group__item:focus { outline: none; }
+.btn-group__item::after {
+  content: '✔️';
+  margin-left: 0.5rem;
+  display: inline-block;
+  color: rebeccapurple;
+  position: absolute;
+  transform: translateY(10px);
+  opacity: 0;
+  transition: all 200ms ease-out;
+}
+.btn-group__item--active::after {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+/* Variant colours layered on top of base */
+.btn-group__item--primary   { background:#464B29; color:#FAF2DF; }
+.btn-group__item--primary:hover  { color:#9ef7a2; box-shadow:inset 0px -20px 0px -15px rgba(0,0,0,0.35); }
+.btn-group__item--danger    { background:#fce4ec; color:#c62828; }
+.btn-group__item--danger:hover   { color:#7f0000; box-shadow:inset 0px -20px 0px -15px #c62828; }
+.btn-group__item--success   { background:#d1fae5; color:#065f46; }
+.btn-group__item--success:hover  { color:#022c22; box-shadow:inset 0px -20px 0px -15px #065f46; }
+.btn-group__item--info      { background:#dbeafe; color:#1e40af; }
+.btn-group__item--info:hover     { color:#1e3a8a; box-shadow:inset 0px -20px 0px -15px #1e40af; }
+.btn-group__item--warning   { background:#fef3c7; color:#92400e; }
+.btn-group__item--warning:hover  { color:#78350f; box-shadow:inset 0px -20px 0px -15px #92400e; }
+.btn-group__item--neutral   { background:#f3f4f6; color:#374151; }
+.btn-group__item--neutral:hover  { color:#111827; box-shadow:inset 0px -20px 0px -15px #374151; }
+.btn-group__item--sm { min-width:3.5rem; padding:0.4rem 0.9rem; font-size:0.74rem; }
+.btn-group__item--lg { min-width:7rem; padding:0.85rem 1.75rem; font-size:0.92rem; }
+
+/* Filter pills */
+.filter-bar{background:var(--white);border-bottom:1px solid var(--gray100);padding:0.75rem 1rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.filter-bar::-webkit-scrollbar{display:none}
+.filter-inner{max-width:1000px;margin:0 auto;display:flex;gap:0.6rem;white-space:nowrap}
+
+/* Category nav — tabs styled as btn-group row */
+.cat-nav{background:var(--white);border-bottom:1px solid var(--gray100);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.cat-nav::-webkit-scrollbar{display:none}
+.cat-nav-inner{max-width:1000px;margin:0 auto;display:flex;padding:0.6rem 1rem;gap:0.5rem}
+.cat-tab{
+  font-family:'Nunito Sans','Inter',sans-serif;font-size:0.82rem;font-weight:600;
+  padding:0.55rem 1.1rem;border:none;background:#eee;color:#333;cursor:pointer;
+  position:relative;
+  box-shadow:inset 0px 0px 0px -15px rebeccapurple;
+  transition:all 300ms ease-out;white-space:nowrap;
+  border-radius:0.75rem;
+}
+.cat-tab:first-child{border-top-left-radius:1rem;border-bottom-left-radius:1rem}
+.cat-tab:last-child{border-top-right-radius:1rem;border-bottom-right-radius:1rem}
+.cat-tab:hover,.cat-tab:focus{color:rebeccapurple;box-shadow:inset 0px -20px 0px -15px rebeccapurple;outline:none}
+.cat-tab.active{color:rebeccapurple;box-shadow:inset 0px -20px 0px -15px rebeccapurple;font-weight:700}
+
+/* Main content */
+.main{max-width:1000px;margin:0 auto;padding:2rem 1rem 5rem}
+.section-title{font-size:1.5rem;font-weight:700;margin-bottom:1.5rem;color:var(--black);display:flex;align-items:center;gap:0.75rem;font-family:'DM Serif Display',serif}
+.section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--gray100) 0%,transparent 100%)}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;margin-bottom:2.5rem}
+
+/* Category selection grid */
+.category-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;max-width:100%;margin:0 auto;padding:0 1rem;perspective:1200px;transform-style:preserve-3d}
+.cat-card{
+  position:relative;
+  width:100%;
+  height:220px;
+  border-radius:var(--radius-xl);
+  overflow:hidden;
+  margin-bottom:14px;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  box-shadow:0 8px 32px rgba(26,20,16,.18);
+  transition:transform .2s ease,box-shadow .2s ease;
+  transform-style:preserve-3d
+}
+.cat-card:active{transform:scale(.975);box-shadow:0 4px 16px rgba(26,20,16,.14)}
+.cat-card:hover{transform:translateY(-8px) rotateX(5deg) rotateY(-5deg);box-shadow:0 25px 50px rgba(99,102,241,0.2),0 0 0 1px rgba(99,102,241,0.1) inset}
+.cat-card img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  transition:transform .6s ease;
+  transform:translateZ(10px)
+}
+.cat-card:active img{transform:scale(1.03)}
+.cat-card:hover img{transform:translateZ(20px) scale(1.05)}
+.cat-card-fallback{position:absolute;inset:0}
+.cat-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(175deg,rgba(26,20,16,0) 25%,rgba(26,20,16,.82) 100%);
+  z-index:1;
+  border-radius:var(--radius-xl)
+}
+.cat-content{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:20px 22px 22px;
+  display:flex;align-items:flex-end;justify-content:space-between;
+  z-index:2
+}
+.cat-tag{
+  position:absolute;top:16px;right:16px;
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:100px;
+  padding:4px 12px;
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.85);
+  z-index:3
+}
+.cat-name{
+  font-size:34px;font-weight:600;line-height:1;
+  color:#fff;
+  text-shadow:0 2px 12px rgba(0,0,0,.3);
+  transform:translateZ(5px)
+}
+.cat-sub{
+  font-size:11px;color:rgba(255,255,255,.6);
+  margin-top:4px;font-family:'DM Sans',sans-serif;font-weight:300
+}
+.cat-arrow{
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.25);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:16px;
+  flex-shrink:0;
+  transform:translateZ(8px)
+}
+
+/* Back navigation */
+.back-nav{position:sticky;top:72px;background:var(--white);border-bottom:1px solid var(--gray100);padding:0.75rem 1rem;z-index:90}
+.back-btn{
+  font-family:'Nunito Sans','Inter',sans-serif;font-size:0.85rem;font-weight:600;
+  border:none;padding:0.6rem 1.4rem;border-radius:1rem;background:#eee;color:#333;
+  cursor:pointer;position:relative;
+  box-shadow:
+    -2.3px -2.3px 3.8px rgba(255,255,255,0.55),
+    -6.3px -6.3px 10.6px rgba(255,255,255,0.4),
+    2.3px 2.3px 3.8px rgba(0,0,0,0.024),
+    6.3px 6.3px 10.6px rgba(0,0,0,0.035);
+  box-shadow:inset 0px 0px 0px -15px rebeccapurple;
+  transition:all 300ms ease-out;
+  display:inline-flex;align-items:center;gap:0.4rem;
+}
+.back-btn:hover,.back-btn:focus{color:rebeccapurple;box-shadow:inset 0px -20px 0px -15px rebeccapurple;outline:none}
+.back-btn::after{
+  content:'✔️';margin-left:0.5rem;display:inline-block;color:rebeccapurple;
+  position:absolute;transform:translateY(10px);opacity:0;transition:all 200ms ease-out;
+}
+
+/* Menu card */
+.menu-grid{perspective:1000px;transform-style:preserve-3d}
+.menu-card{background:var(--white);border-radius:20px;overflow:hidden;border:1px solid var(--gray100);transition:all 0.4s cubic-bezier(0.4,0,0.2,1);cursor:pointer;position:relative;transform-style:preserve-3d}
+.menu-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(99,102,241,0.05) 0%,rgba(217,119,6,0.05) 100%);opacity:0;transition:opacity 0.4s ease;z-index:0;pointer-events:none}
+.menu-card:hover{box-shadow:0 20px 40px rgba(99,102,241,0.15),0 0 0 1px rgba(99,102,241,0.1) inset;transform:translateY(-6px) rotateX(3deg);border-color:var(--accent-soft)}
+.menu-card:hover::before{opacity:1}
+.menu-card:active{transform:translateY(-2px) scale(0.98)}
+.card-img{width:100%;height:190px;object-fit:cover;display:block;background:var(--gray100);transition:transform 0.4s ease;transform:translateZ(0)}
+.menu-card:hover .card-img{transform:translateZ(10px) scale(1.05)}
+.card-img-placeholder{width:100%;height:190px;background:linear-gradient(135deg,var(--gray50) 0%,var(--gray100) 100%);display:flex;align-items:center;justify-content:center;font-size:3rem}
+.card-body{padding:1.1rem 1.15rem 1.2rem}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:0.6rem;margin-bottom:0.5rem}
+.card-name{font-size:1rem;font-weight:600;color:var(--black);line-height:1.35}
+.card-price{font-size:1rem;font-weight:700;color:var(--primary);white-space:nowrap;background:var(--primary-light);padding:4px 10px;border-radius:8px}
+.card-desc{font-size:0.82rem;color:var(--gray500);line-height:1.55;margin-bottom:0.75rem}
+.card-badges{display:flex;flex-wrap:wrap;gap:0.4rem;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:0.72rem;font-weight:500;padding:3px 9px;border-radius:6px}
+.badge-veg{background:#dcfce7;color:#166534}
+.badge-nonveg{background:#fee2e2;color:#991b1b}
+.badge-chef{background:var(--gold-bg);color:#92400e}
+.badge-popular{background:#ffedd5;color:#9a3412}
+.badge-spicy1{background:#fef9c3;color:#854d0e}
+.badge-spicy2{background:#ffedd5;color:#9a3412}
+.badge-spicy3{background:#fee2e2;color:#7f1d1d}
+.badge-new{background:#dbeafe;color:#1e40af}
+.prep-time{font-size:0.72rem;color:var(--gray500);display:flex;align-items:center;gap:4px;background:var(--gray50);padding:3px 8px;border-radius:6px}
+
+/* Badges on card image */
+.img-badge{position:absolute;top:0.75rem;left:0.75rem;display:flex;gap:0.4rem;flex-wrap:wrap}
+.img-badge .badge{font-size:0.68rem;padding:4px 10px;backdrop-filter:blur(8px);box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+
+/* No results */
+.no-results{text-align:center;padding:4rem 1rem;color:var(--gray500)}
+.no-results svg{margin-bottom:1rem;opacity:0.5;width:56px;height:56px}
+.no-results p:first-of-type{font-size:1rem;font-weight:600;color:var(--gray700)}
+
+/* Item detail modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,0.6);backdrop-filter:blur(4px);z-index:200;display:none;align-items:flex-end;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--white);border-radius:24px 24px 0 0;width:100%;max-width:560px;max-height:92vh;overflow-y:auto;animation:slideUp 0.35s cubic-bezier(0.4,0,0.2,1)}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal-img{width:100%;height:240px;object-fit:cover}
+.modal-img-ph{width:100%;height:240px;background:linear-gradient(135deg,var(--gray50) 0%,var(--gray100) 100%);display:flex;align-items:center;justify-content:center;font-size:5rem}
+.modal-body{padding:1.5rem 1.5rem 2.5rem}
+.modal-handle{width:48px;height:5px;background:var(--gray100);border-radius:3px;margin:0 auto 1.25rem}
+.modal-name{font-size:1.45rem;font-weight:700;margin-bottom:0.4rem;line-height:1.3}
+.modal-price{font-size:1.2rem;font-weight:700;color:var(--primary);margin-bottom:0.85rem;background:var(--primary-light);padding:6px 14px;border-radius:10px;display:inline-block}
+.modal-desc{font-size:0.92rem;color:var(--gray500);line-height:1.65;margin-bottom:1.25rem}
+.modal-close{position:absolute;top:1.25rem;right:1.25rem;width:40px;height:40px;background:rgba(255,255,255,0.95);border:none;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.15);transition:all 0.2s}
+.modal-close:hover{background:var(--white);transform:scale(1.05)}
+.modal-section-label{font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--gray500);margin-bottom:0.6rem}
+
+/* QR footer */
+.qr-footer{background:var(--off);border-top:1px solid var(--gray100);padding:3rem 1rem;text-align:center;opacity:0.6;transition:opacity 0.3s ease;position:relative;overflow:hidden}
+.qr-footer::before{content:'';position:absolute;top:0;left:0;width:60px;height:100%;background:linear-gradient(180deg,var(--leaf) 0%,#7A8A5A 100%);border-radius:0 30px 30px 0;opacity:0.3}
+.qr-footer::after{content:'';position:absolute;top:0;right:0;width:60px;height:100%;background:linear-gradient(180deg,var(--leaf) 0%,#7A8A5A 100%);border-radius:30px 0 0 30px;opacity:0.3}
+.qr-footer:hover{opacity:1}
+.qr-footer h3{font-size:2.2rem;font-weight:600;margin-bottom:0.5rem;color:var(--gray700)}
+.qr-footer p{font-size:0.85rem;color:var(--gray500);margin-bottom:1.25rem}
+.qr-box{display:inline-block;background:var(--white);padding:16px;border:2px solid var(--gray100);border-radius:16px;box-shadow:var(--shadow-md);transition:all 0.3s ease}
+.qr-box:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.qr-container{display:flex;justify-content:space-between;align-items:center;gap:8rem;max-width:600px;margin:0 auto;padding:0 4rem}
+.qr-item{display:flex;flex-direction:column;align-items:center;gap:0.5rem}
+.qr-item span{font-size:0.75rem;color:var(--gray500);font-weight:500}
+
+/* Admin link button */
+.admin-link{
+  display:inline-block;margin-top:1rem;
+  font-family:'Nunito Sans','Inter',sans-serif;font-size:0.85rem;font-weight:600;
+  color:#FAF2DF;cursor:pointer;border:none;border-radius:1rem;
+  padding:0.75rem 2rem;background:#464B29;
+  position:relative;
+  box-shadow:
+    -2.3px -2.3px 3.8px rgba(255,255,255,0.15),
+    2.3px 2.3px 3.8px rgba(0,0,0,0.06),
+    6.3px 6.3px 10.6px rgba(0,0,0,0.08),
+    inset 0px 0px 0px -15px rgba(0,0,0,0.4);
+  text-decoration:none;transition:all 300ms ease-out;
+}
+.admin-link:hover,.admin-link:focus{
+  color:#9ef7a2;
+  box-shadow:inset 0px -20px 0px -15px rgba(0,0,0,0.4);
+  outline:none;
+}
+.admin-link::after{
+  content:'✔️';margin-left:0.5rem;display:inline-block;
+  position:absolute;transform:translateY(10px);opacity:0;transition:all 200ms ease-out;
+}
+
+/* ── ADMIN VIEW ── */
+#admin-view{background:var(--off);min-height:100vh}
+.admin-header{background:var(--black);color:var(--white);padding:0 1rem;position:sticky;top:0;z-index:100}
+.admin-header-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+.admin-header h2{font-size:1rem;font-weight:600}
+.btn{
+  font-family:'Nunito Sans','Inter',sans-serif;font-size:0.85rem;font-weight:600;
+  border:none;padding:0.55rem 1.1rem;border-radius:1rem;background:#eee;color:#333;
+  cursor:pointer;position:relative;
+  box-shadow:inset 0px 0px 0px -15px rebeccapurple;
+  transition:all 300ms ease-out;
+}
+.btn:hover,.btn:focus{color:rebeccapurple;box-shadow:inset 0px -20px 0px -15px rebeccapurple;outline:none}
+.btn::after{content:'✔️';margin-left:0.4rem;display:inline-block;color:rebeccapurple;position:absolute;transform:translateY(10px);opacity:0;transition:all 200ms ease-out}
+.btn-white{background:#fff;color:#1c1917}
+.btn-black{background:#1c1917;color:#fff}
+.btn-black:hover{color:#a78bfa;box-shadow:inset 0px -20px 0px -15px #a78bfa}
+.btn-gold{background:#fef3c7;color:#92400e}
+.btn-danger{background:#fce4ec;color:#c62828}
+.btn-danger:hover{color:#7f0000;box-shadow:inset 0px -20px 0px -15px #c62828}
+.btn-sm{min-width:3rem;padding:0.3rem 0.8rem;font-size:0.74rem;border-radius:0.75rem}
+
+.admin-main{max-width:960px;margin:0 auto;padding:1.5rem 1rem 4rem}
+.admin-tabs{display:flex;gap:0.4rem;margin-bottom:1.5rem;flex-wrap:wrap;
+  border-bottom:none;padding-bottom:0.5rem;
+  box-shadow:
+    -2.3px -2.3px 3.8px rgba(255,255,255,0.55),
+    -6.3px -6.3px 10.6px rgba(255,255,255,0.35),
+    2.3px 2.3px 3.8px rgba(0,0,0,0.024),
+    6.3px 6.3px 10.6px rgba(0,0,0,0.035),
+    15.1px 15.1px 25.6px rgba(0,0,0,0.04);
+  border-radius:1rem;width:fit-content;overflow:hidden;
+}
+.admin-tab{
+  font-family:'Nunito Sans','Inter',sans-serif;font-size:0.82rem;font-weight:600;
+  border:none;padding:0.65rem 1rem;background:#eee;color:#333;
+  cursor:pointer;position:relative;
+  box-shadow:inset 0px 0px 0px -15px rebeccapurple;
+  transition:all 300ms ease-out;white-space:nowrap;
+  border-radius:0;
+}
+.admin-tab:first-child{border-top-left-radius:1rem;border-bottom-left-radius:1rem}
+.admin-tab:last-child{border-top-right-radius:1rem;border-bottom-right-radius:1rem}
+.admin-tab:hover,.admin-tab:focus{color:rebeccapurple;box-shadow:inset 0px -20px 0px -15px rebeccapurple;outline:none}
+.admin-tab.active{color:rebeccapurple;box-shadow:inset 0px -20px 0px -15px rebeccapurple;font-weight:700}
+.admin-tab::after{content:'✔️';margin-left:0.4rem;display:inline-block;color:rebeccapurple;position:absolute;transform:translateY(10px);opacity:0;transition:all 200ms ease-out}
+.admin-tab.active::after{opacity:1;transform:translateY(-2px)}
+
+.admin-panel{display:none}
+.admin-panel.active{display:block}
+
+/* Admin cards */
+.admin-item-list{display:flex;flex-direction:column;gap:0.75rem}
+.admin-item{background:var(--white);border:1px solid var(--gray100);border-radius:var(--radius);padding:0.9rem 1rem;display:flex;align-items:center;gap:0.9rem}
+.admin-item-thumb{width:56px;height:56px;border-radius:8px;object-fit:cover;flex-shrink:0;background:var(--gray100)}
+.admin-item-thumb-ph{width:56px;height:56px;border-radius:8px;flex-shrink:0;background:var(--gray50);display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.admin-item-info{flex:1;min-width:0}
+.admin-item-info h4{font-size:0.88rem;font-weight:600;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.admin-item-info p{font-size:0.75rem;color:var(--gray500)}
+.admin-item-actions{display:flex;gap:0.4rem;flex-shrink:0}
+
+/* Category list */
+.cat-list{display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.5rem}
+.cat-item{background:var(--white);border:1px solid var(--gray100);border-radius:var(--radius);padding:0.8rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem}
+.cat-item span{font-size:0.88rem;font-weight:500}
+
+/* Form panel */
+.form-card{background:var(--white);border:1px solid var(--gray100);border-radius:var(--radius);padding:1.25rem}
+.form-card h3{font-size:1rem;font-weight:600;margin-bottom:1rem}
+.form-group{margin-bottom:0.9rem}
+.form-group label{display:block;font-size:0.78rem;font-weight:500;color:var(--gray700);margin-bottom:0.3rem}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:0.6rem 0.8rem;border:1.5px solid var(--gray100);border-radius:8px;font-size:0.88rem;font-family:'Inter',sans-serif;color:var(--black);background:var(--white);outline:none;transition:border 0.2s}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--gray300)}
+.form-group textarea{resize:vertical;min-height:80px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
+.checkbox-row{display:flex;gap:1rem;flex-wrap:wrap}
+.checkbox-row label{display:flex;align-items:center;gap:0.4rem;font-size:0.82rem;font-weight:400;cursor:pointer}
+.checkbox-row input[type=checkbox]{width:auto}
+.form-actions{display:flex;gap:0.6rem;margin-top:1rem}
+
+/* Image upload */
+.img-upload-area{border:2px dashed var(--gray100);border-radius:8px;padding:1.5rem;text-align:center;cursor:pointer;transition:border-color 0.2s;position:relative}
+.img-upload-area:hover{border-color:var(--gray300)}
+.img-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.img-upload-area p{font-size:0.8rem;color:var(--gray500)}
+.img-preview{width:100%;height:140px;object-fit:cover;border-radius:6px;margin-bottom:0.5rem;display:none}
+
+/* Login */
+#login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--black)}
+.login-card{background:var(--white);border-radius:16px;padding:2rem;width:100%;max-width:340px;margin:1rem}
+.login-card h2{font-size:1.2rem;font-weight:700;margin-bottom:0.25rem}
+.login-card p{font-size:0.82rem;color:var(--gray500);margin-bottom:1.5rem}
+.login-error{background:#fce4ec;color:#c62828;font-size:0.8rem;padding:0.5rem 0.75rem;border-radius:6px;margin-bottom:0.75rem;display:none}
+.login-input{width:100%;height:64px;padding:0 22px;border-radius:8px;border:1px solid rgba(0,0,0,0.15);background:var(--gray50);color:var(--black);font-size:20px;outline:none;transition:box-shadow .18s ease,border-color .18s ease;font-family:'Inter',sans-serif}
+.login-input::placeholder{color:var(--gray500)}
+.login-input:focus-visible{border-color:var(--accent-soft);box-shadow:0 0 0 6px rgba(99,102,241,0.1)}
+
+/* Eye tracking styles from login.css */
+.subscribe-outer{position:relative}
+.track{width:clamp(232px,92vw,720px);height:190px;position:relative;margin-inline:auto}
+.chloe{position:absolute;top:0;left:0;transform:translateY(54px) translateX(var(--chx,0px));display:inline-block;cursor:grab;touch-action:none;user-select:none;transition:transform 220ms cubic-bezier(.22,.61,.36,1)}
+.chloe.dragging{cursor:grabbing}
+.error-message{position:absolute;top:-140%;left:50%;transform:translateX(-50%);opacity:0;visibility:hidden;transition:opacity 0.6s ease-in-out,visibility 0.6s ease-in-out;height:120px}
+.error-message.is-active{opacity:1;visibility:visible}
+.error-text{font-size:32px;font-weight:bold;fill:#9333ea;font-family:'DM Serif Display',serif}
+.eyeWhite{position:absolute;top:83px;left:50%;transform:translateX(-50%);z-index:0;overflow:hidden}
+.eyeball-left,.eyeball-right{position:absolute;top:95px;left:50%;z-index:1;transition:transform 120ms cubic-bezier(.22,.61,.36,1);will-change:transform}
+.eyeball-left{transform:translateX(-50%) translateX(-40px)}
+.eyeball-right{transform:translateX(-50%) translateX(40px)}
+.mask{position:relative;z-index:2}
+.subscribe{width:clamp(232px,92vw,720px);display:grid;gap:14px;margin-top:18px}
+.input{width:100%;height:64px;padding:0 22px;border-radius:8px;border:1px solid rgba(255,255,255,.65);background:transparent;color:var(--text);font-size:20px;outline:none;transition:box-shadow .18s ease,border-color .18s ease}
+.input::placeholder{color:var(--muted)}
+.input:focus-visible{border-color:var(--accent);box-shadow:0 0 0 6px color-mix(in oklch,var(--accent),transparent 82%)}
+.btn{width:100%;height:64px;border:0;border-radius:8px;background:var(--accent);color:#121212;font-weight:500;font-size:24px;cursor:pointer;transition:transform .12s ease,filter .12s ease;font-weight:bold}
+.btn:hover{filter:brightness(1.5)}
+.btn:active{transform:translateY(0)}
+.subscribe-outer.has-error .error-message{opacity:1;visibility:visible}
+.subscribe-outer.has-error .input{border-color:var(--accent);box-shadow:0 0 0 6px color-mix(in oklch,var(--accent),transparent 82%)}
+
+/* Toast */
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--black);color:var(--white);padding:0.65rem 1.25rem;border-radius:999px;font-size:0.82rem;z-index:500;transition:transform 0.3s;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* Responsive */
+@media(max-width:480px){
+  .menu-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .modal{max-height:95vh}
+  .category-grid{grid-template-columns:1fr;gap:1rem;padding:0 0.75rem}
+  .cat-card{height:180px}
+  .cat-name{font-size:28px}
+  .cat-arrow{width:36px;height:36px;font-size:14px}
+  .cat-content{padding:16px 18px 18px}
+  .cat-tag{font-size:9px;padding:3px 10px;top:12px;right:12px}
+  .header-inner{height:70px;padding:0.75rem 0}
+  .logo-img{width:100px;max-height:50px}
+  .logo-area h1{font-size:1.3rem}
+  .logo-area span{font-size:0.65rem}
+  .main{padding:1.5rem 0.75rem 4rem}
+  .menu-card{border-radius:16px}
+  .card-img{height:160px}
+  .card-body{padding:0.9rem 1rem 1rem}
+  .card-name{font-size:0.95rem}
+  .card-price{font-size:0.9rem;padding:3px 8px;border-radius:6px}
+  .card-desc{font-size:0.78rem}
+  .badge{font-size:0.68rem;padding:2px 7px;border-radius:5px}
+  .section-title{font-size:1rem;margin-bottom:1rem}
+  .back-nav{top:70px}
+  .site-header{padding:0 0.75rem}
+}
+
+/* 3D Animation Keyframes */
+@keyframes fadeInUp3D{
+  from{
+    opacity:0;
+    transform:translateY(30px) rotateX(-10deg);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) rotateX(0);
+  }
+}
+
+@keyframes float3D{
+  0%,100%{
+    transform:translateY(0) rotateX(0) rotateY(0);
+  }
+  50%{
+    transform:translateY(-10px) rotateX(2deg) rotateY(2deg);
+  }
+}
+
+/* Entrance animations for category cards */
+.cat-card{
+  animation:fadeInUp3D 0.6s ease backwards;
+}
+.cat-card:nth-child(1){animation-delay:0.1s}
+.cat-card:nth-child(2){animation-delay:0.2s}
+.cat-card:nth-child(3){animation-delay:0.3s}
+.cat-card:nth-child(4){animation-delay:0.4s}
+.cat-card:nth-child(5){animation-delay:0.5s}
+.cat-card:nth-child(6){animation-delay:0.6s}
+
+/* Entrance animations for menu cards */
+.menu-card{
+  animation:fadeInUp3D 0.5s ease backwards;
+}
+
+/* Parallax effect on category section */
+#category-selection{
+  background:radial-gradient(1200px 600px at 10% -10%,rgba(99,102,241,0.03) 0%,transparent 40%),
+             radial-gradient(900px 600px at 110% 10%,rgba(217,119,6,0.03) 0%,transparent 40%);
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════ LOGIN ═══ -->
+<div id="login-screen" style="display:none">
+  <div class="login-card">
+    <h2>Admin Access</h2>
+    <p></p>
+    
+    <div class="subscribe-outer">
+      <div class="track" id="track">
+        <div class="chloe" id="chloe" aria-label="Drag left or right">
+          <svg class="error-message" viewBox="0 0 500 500">
+            <path id="curve" fill="transparent" d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97" />
+            <text class="error-text" fill="white" width="500" text-anchor="middle">
+              <textPath xlink:href="#curve" startOffset="50%">
+                Wrong Password
+              </textPath>
+            </text>
+          </svg>
+          <div class="eyeWhite" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="118" height="57" fill="none">
+              <ellipse cx="99" cy="28" fill="#fff" rx="19" ry="28"/>
+              <ellipse cx="19" cy="28" fill="#fff" rx="19" ry="28"/>
+            </svg>
+          </div>
+          <div class="eyeball-left" id="eyeball-left" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" fill="none">
+              <circle cx="20" cy="20" r="20" fill="url(#left-gradient)"/>
+              <circle cx="22" cy="11" r="6" fill="#FCF5F3"/>
+              <circle cx="25" cy="20" r="3" fill="#FCF5F3"/>
+              <defs>
+                <linearGradient id="left-gradient" x1="0" x2="35" y1="17.5" y2="17.5" gradientUnits="userSpaceOnUse">
+                  <stop offset=".317" stop-color="#BD00A9"/>
+                  <stop offset="1" stop-color="#57004E"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="eyeball-right" id="eyeball-right" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" fill="none">
+              <circle cx="20" cy="20" r="20" fill="url(#right-gradient)"/>
+              <circle cx="23" cy="11" r="6" fill="#FCF5F3"/>
+              <circle cx="26" cy="20" r="3" fill="#FCF5F3"/>
+              <defs>
+                <linearGradient id="right-gradient" x1="0" x2="35" y1="17.5" y2="17.5" gradientUnits="userSpaceOnUse">
+                  <stop offset=".317" stop-color="#BD00A9"/>
+                  <stop offset="1" stop-color="#57004E"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="mask">
+            <svg width="232" height="172" fill="none" viewBox="0 0 232 172" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="gradient-a" x1="117.999" x2="118.004" y1="0" y2="168" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#FFB3BA"/>
+                  <stop offset=".2" stop-color="#FF8FA3"/>
+                  <stop offset=".5" stop-color="#E85A9B"/>
+                  <stop offset=".75" stop-color="#C73A9C"/>
+                  <stop offset="1" stop-color="#8B1A89"/>
+                </linearGradient>
+              </defs>
+              <path fill="url(#gradient-a)" d="M115.972 0c18.723 0 36.111 5.717 50.512 15.501 8.836-12.564 25.962-16.522 39.52-8.694 14.349 8.284 19.264 26.631 10.98 40.98A29.875 29.875 0 0 1 201.197 61c3.096 9.1 4.775 18.853 4.775 29 0 49.706-40.294 78-90 78-49.705 0-90-28.294-90-78 0-11.353 2.103-22.215 5.939-32.218a29.86 29.86 0 0 1-12.888-11.994c-8.284-14.349-3.368-32.696 10.98-40.98 13.405-7.74 30.3-3.958 39.219 8.272C82.847 4.78 98.852 0 115.972 0ZM75.023 82.807c-10.493 0-19 12.536-19 28s8.507 28 19 28c10.494 0 19-12.536 19-28s-8.506-28-19-28Zm80 0c-10.493 0-19 12.536-19 28s8.507 28 19 28c10.494 0 19-12.536 19-28s-8.506-28-19-28Z"/>
+              <path fill="#FFDBE4" d="M115.023 43.807c40.87 0 74 29.001 74 64.776 0 35.775-33.131 55.224-74 55.224s-74-19.449-74-55.224c0-35.775 33.131-64.776 74-64.776Zm-40 39c-10.493 0-19 12.536-19 28s8.507 28 19 28c10.494 0 19-12.536 19-28s-8.506-28-19-28Zm80 0c-10.493 0-19 12.536-19 28s8.507 28 19 28c10.494 0 19-12.536 19-28s-8.506-28-19-28Z"/>
+              <path fill="#BD00A9" d="M75.504 75.077c-2.605-.046-8.154 1.337-12.012 3.029-.954.418-.556 1.312.467 1.114 12.928-2.505 20.976 1.09 20.976 1.09.985.357 1.706-.947.879-1.591l-.349-.271c-2.507-2.534-6.355-3.308-9.962-3.371ZM151.051 75.077c2.605-.046 8.153 1.337 12.012 3.029.954.418-.556 1.312-.467 1.114-12.928-2.505-20.976 1.09-20.976 1.09-.985.357-1.706-.947-.879-1.591l.348-.271c2.507-2.534 6.355-3.308 9.962-3.371Z"/>
+              <path stroke="#EFC6B8" stroke-width="2" d="M115 45c40.442 0 73 28.789 73 64.04 0 17.605-8.098 31.049-21.242 40.128C153.58 158.271 135.296 163 115 163c-20.296 0-38.58-4.729-51.758-13.832C50.1 140.089 42 126.645 42 109.04 42 73.789 74.558 45 115 45Z"/>
+              <ellipse cx="155.023" cy="110.807" stroke="#BD00A9" stroke-width="2" rx="19" ry="28"/>
+              <ellipse cx="75.023" cy="110.807" stroke="#BD00A9" stroke-width="2" rx="19" ry="28"/>
+              <path class="nose" fill="#BD00A9" stroke="#BD00A9" d="M118 121.5c1.644 0 3.036.174 4.005.697.473.256.839.591 1.09 1.029.251.439.405 1.014.405 1.774 0 .663-.296 1.333-.804 1.991-.506.657-1.196 1.265-1.912 1.79a4.696 4.696 0 0 1-5.568 0c-.716-.525-1.406-1.133-1.912-1.79-.508-.658-.804-1.328-.804-1.991 0-.76.154-1.335.405-1.774.251-.438.617-.773 1.09-1.029.969-.523 2.361-.697 4.005-.697Z"/>
+              <ellipse class="nose_light" cx="120" cy="124.501" fill="#FCF5F3" rx="2" ry="1.5"/>
+              <path class="mouth" stroke="#BD00A9" stroke-linecap="round" stroke-width="2" d="M130.283 141.002c-3.315 2.561-7.811 4-12.5 4-4.688 0-9.185-1.439-12.5-4M132.863 141.968l-.879-.424a5.134 5.134 0 0 1-2.467-2.543M103 142.299l.831-.513A5.137 5.137 0 0 0 106.02 139"/>
+              <path class="arms" fill="#FFDBE4" stroke="#EBB6A5" stroke-width="2" d="M17.105 139h24.98l5.031 5.031a53.938 53.938 0 0 0 6.972 5.881l5.77 4.088H31.532v2.169c0 6.817-2.99 12.999-9.164 14.242-1.919.387-3.769.589-5.262.589C8.204 171 1 163.831 1 155c0-8.693 6.981-15.776 15.69-15.995l.415-.005ZM214.895 139h-24.981l-5.03 5.031a53.988 53.988 0 0 1-6.972 5.881l-5.77 4.088h28.326v2.169c0 6.817 2.99 12.999 9.164 14.242 1.919.387 3.769.589 5.263.589 8.9 0 16.105-7.169 16.105-16 0-8.693-6.981-15.776-15.689-15.995l-.416-.005Z"/>
+              <path class="arms_light" fill="#fff" d="M226.009 149.937c1.616 3.555 1.245 7.201-.829 8.144-2.073.943-1.31-2.882-2.926-6.437s-5-5.494-2.926-6.437c2.074-.943 5.065 1.175 6.681 4.73ZM27.603 149.937c1.616 3.555 1.245 7.201-.829 8.144-2.074.943-1.31-2.882-2.926-6.437s-5-5.494-2.926-6.437c2.073-.943 5.065 1.175 6.68 4.73Z"/>
+              <path class="head_light" fill="#fff" d="M117.5 31c27.062 0 46.5 13.773 46.5 13.773 0 2.45-19.438-9.273-46.5-9.273S71.5 46 66 44.773C66 44.773 90.438 31 117.5 31Z" opacity=".4"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form class="subscribe" onsubmit="event.preventDefault();doLogin()" style="margin-top:18px;width:100%">
+      <input class="input" id="admin-password" type="password" placeholder="Enter admin password" required style="height:48px" />
+      <button class="btn-group__item btn-group__item--primary btn-group__item--lg" style="height:48px;border-radius:1rem;width:100%;font-size:1rem" type="submit">Sign In</button>
+    </form>
+    <button class="admin-link" onclick="showCustomer()" style="margin-top:1rem">← Back to menu</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ CUSTOMER VIEW ═══ -->
+<div id="customer-view">
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-area">
+        <img src="logo.jpeg" alt="Restro 53 Logo" class="logo-img" onerror="this.style.display='none'">
+        <div class="logo-text">
+          <h1 class="serif">Restro 53</h1>
+          <span>Grande, Kathmandu</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main" id="category-selection">
+    <div class="category-grid" id="category-grid"></div>
+  </main>
+
+  <main class="main" id="menu-main" style="display:none"></main>
+
+  <div class="back-nav" id="back-nav" style="display:none">
+    <button class="back-btn" onclick="showCategories()">← Back to Categories</button>
+  </div>
+
+  <div class="qr-footer">
+    <h3 class="serif">Restro 53</h3>
+    <p>Grande, Kathmandu</p>
+    <p style="font-size:0.9rem;color:var(--gray500);margin-bottom:0.25rem">📍 <span id="footer-location">Grande, Kathmandu, Nepal</span></p>
+    <p style="font-size:0.9rem;color:var(--gray500);margin-bottom:0.25rem">📞 <span id="footer-phone">+977-1-XXXXXXX</span></p>
+    <p style="font-size:0.9rem;color:var(--gray500);margin-bottom:1.25rem">✉️ <span id="footer-email">info@restro53.com</span></p>
+    <div class="qr-container">
+      <div class="qr-item">
+        <div id="instagram-qr-display"></div>
+        <span>Instagram</span>
+      </div>
+      <div class="qr-item">
+        <div id="tiktok-qr-display"></div>
+        <span>TikTok</span>
+      </div>
+    </div>
+    <p style="font-size:0.72rem;color:var(--gray300);margin-top:1.5rem">© 2026 Restro 53 · All rights reserved</p>
+    <button class="admin-link" onclick="showLogin()">Admin Panel</button>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ ITEM MODAL ═══ -->
+<div class="modal-overlay" id="item-modal" onclick="closeModal(event)">
+  <div class="modal" id="modal-inner" style="position:relative">
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ ADMIN VIEW ═══ -->
+<div id="admin-view">
+  <header class="admin-header">
+    <div class="admin-header-inner">
+      <h2>🛠 Admin Panel — Restro 53</h2>
+      <button class="btn btn-sm" style="background:#d1fae5;color:#065f46" onclick="showCustomer()">← View Menu</button>
+    </div>
+  </header>
+
+  <div class="admin-main">
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchAdminTab('items',this)">Menu Items</button>
+      <button class="admin-tab" onclick="switchAdminTab('categories',this)">Categories</button>
+      <button class="admin-tab" onclick="switchAdminTab('add-item',this)">+ Add Item</button>
+      <button class="admin-tab" onclick="switchAdminTab('add-cat',this)">+ Add Category</button>
+      <button class="admin-tab" onclick="switchAdminTab('social',this)">Social QR</button>
+      <button class="admin-tab" onclick="switchAdminTab('contact',this)">Contact Info</button>
+    </div>
+
+    <!-- Items list -->
+    <div class="admin-panel active" id="panel-items">
+      <div id="admin-item-list-container"></div>
+    </div>
+
+    <!-- Categories -->
+    <div class="admin-panel" id="panel-categories">
+      <div class="cat-list" id="admin-cat-list"></div>
+    </div>
+
+    <!-- Add / Edit Item -->
+    <div class="admin-panel" id="panel-add-item">
+      <div class="form-card">
+        <h3 id="item-form-title">Add New Item</h3>
+        <input type="hidden" id="edit-item-id">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Item Name *</label>
+            <input type="text" id="f-name" placeholder="e.g. Chicken Momo">
+          </div>
+          <div class="form-group">
+            <label>Category *</label>
+            <select id="f-cat"></select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Price (रू) *</label>
+            <input type="number" id="f-price" placeholder="350">
+          </div>
+          <div class="form-group">
+            <label>Prep Time (mins)</label>
+            <input type="number" id="f-prep" placeholder="15">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="f-desc" placeholder="Describe this dish briefly…"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Image URL (paste a link to an image)</label>
+          <input type="text" id="f-img" placeholder="https://images.unsplash.com/...">
+        </div>
+        <div class="form-group">
+          <label>Spice Level</label>
+          <select id="f-spice">
+            <option value="0">Not Spicy</option>
+            <option value="1">Mild 🌶</option>
+            <option value="2">Medium 🌶🌶</option>
+            <option value="3">Hot 🌶🌶🌶</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tags</label>
+          <div class="checkbox-row">
+            <label><input type="checkbox" id="f-veg"> Vegetarian</label>
+            <label><input type="checkbox" id="f-chef"> Chef's Pick</label>
+            <label><input type="checkbox" id="f-popular"> Popular</label>
+            <label><input type="checkbox" id="f-new"> New</label>
+          </div>
+        </div>
+        <div class="form-actions">
+          <div class="btn-group">
+            <button class="btn-group__item btn-group__item--success btn-group__item--sm" onclick="saveItem()">Save Item</button>
+            <button class="btn-group__item btn-group__item--info btn-group__item--sm" onclick="resetItemForm()">Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Category -->
+    <div class="admin-panel" id="panel-add-cat">
+      <div class="form-card">
+        <h3>Add New Category</h3>
+        <div class="form-group">
+          <label>Category Name *</label>
+          <input type="text" id="f-cat-name" placeholder="e.g. Rice Dishes">
+        </div>
+        <div class="form-group">
+          <label>Category Image URL (paste a link to an image)</label>
+          <input type="text" id="f-cat-img" placeholder="https://images.unsplash.com/...">
+        </div>
+        <div class="form-group">
+          <label>Or Upload Image</label>
+          <div class="img-upload-area">
+            <input type="file" id="f-cat-file" accept="image/*" onchange="handleCatFileUpload(this)">
+            <img id="cat-img-preview" class="img-preview" alt="Preview">
+            <p>Click to upload or drag & drop an image</p>
+          </div>
+        </div>
+        <div class="form-actions">
+          <div class="btn-group">
+            <button class="btn-group__item btn-group__item--success btn-group__item--sm" onclick="saveCategory()">Save Category</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social Media QR Codes -->
+    <div class="admin-panel" id="panel-social">
+      <div class="form-card">
+        <h3>Social Media QR Codes</h3>
+        <div class="form-group">
+          <label>Instagram QR Code URL</label>
+          <input type="text" id="f-instagram-qr" placeholder="https://instagram.com/yourrestaurant">
+        </div>
+        <div class="form-group">
+          <label>TikTok QR Code URL</label>
+          <input type="text" id="f-tiktok-qr" placeholder="https://tiktok.com/@yourrestaurant">
+        </div>
+        <div class="form-actions">
+          <div class="btn-group">
+            <button class="btn-group__item btn-group__item--success btn-group__item--sm" onclick="saveSocialQR()">Save QR Codes</button>
+            <button class="btn-group__item btn-group__item--info btn-group__item--sm" onclick="clearSocialQR()">Clear QR Codes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="admin-panel" id="panel-contact">
+      <div class="form-card">
+        <h3>Contact Information</h3>
+        <div class="form-group">
+          <label>Location</label>
+          <input type="text" id="f-location" placeholder="Grande, Kathmandu, Nepal">
+        </div>
+        <div class="form-group">
+          <label>Google Maps URL</label>
+          <input type="text" id="f-location-url" placeholder="https://maps.google.com/...">
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="text" id="f-phone" placeholder="+977-1-XXXXXXX">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="text" id="f-email" placeholder="info@restro53.com">
+        </div>
+        <div class="form-actions">
+          <div class="btn-group">
+            <button class="btn-group__item btn-group__item--success btn-group__item--sm" onclick="saveContactInfo()">Save Contact Info</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════════════════
+// SCROLL EFFECT
+// ══════════════════════════════════════════════════════
+window.addEventListener('scroll', function() {
+  const header = document.querySelector('.site-header');
+  if (window.scrollY > 50) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+});
+
+// ══════════════════════════════════════════════════════
+// EYE TRACKING FOR LOGIN
+// ══════════════════════════════════════════════════════
+const track = document.getElementById('track');
+const chloe = document.getElementById('chloe');
+const eyeballLeft = document.getElementById('eyeball-left');
+const eyeballRight = document.getElementById('eyeball-right');
+const errorMessage = document.querySelector('.error-message');
+
+if(track && chloe && eyeballLeft && eyeballRight){
+  let isDragging = false;
+  let startX = 0;
+  let currentX = 0;
+
+  // Mouse tracking for eyeballs
+  document.addEventListener('mousemove', (e) => {
+    const rect = track.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    const deltaX = (e.clientX - centerX) / rect.width;
+    const deltaY = (e.clientY - centerY) / rect.height;
+    
+    const maxMove = 15;
+    const moveX = Math.max(-maxMove, Math.min(maxMove, deltaX * maxMove));
+    const moveY = Math.max(-maxMove, Math.min(maxMove, deltaY * maxMove));
+    
+    eyeballLeft.style.transform = `translateX(-50%) translateX(${-40 + moveX}px) translateY(${moveY}px)`;
+    eyeballRight.style.transform = `translateX(-50%) translateX(${40 + moveX}px) translateY(${moveY}px)`;
+  });
+
+  // Drag functionality for chloe
+  chloe.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.clientX;
+    chloe.classList.add('dragging');
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    chloe.classList.remove('dragging');
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const deltaX = e.clientX - startX;
+    const maxDrag = 100;
+    const clampedX = Math.max(-maxDrag, Math.min(maxDrag, deltaX));
+    currentX = clampedX;
+    chloe.style.setProperty('--chx', `${currentX}px`);
+  });
+}
+
+// ══════════════════════════════════════════════════════
+// DATA STORE
+// ══════════════════════════════════════════════════════
+const ADMIN_PASSWORD = "restro53admin";
+
+const defaultCategories = [
+  {id:"momo",name:"Momos",img:""},
+  {id:"rice",name:"Fried Rice",img:""},
+  {id:"noodles",name:"Noodle Items",img:""},
+  {id:"snacks",name:"Snacks",img:""},
+  {id:"soup",name:"Soup & Thukpa",img:""},
+  {id:"hot-beverages",name:"Hot Beverages",img:""},
+  {id:"cold-beverages",name:"Cold Beverages",img:""},
+];
+
+const defaultSocialQR = {
+  instagram: "",
+  tiktok: ""
+};
+
+const defaultContactInfo = {
+  location: "Grande, Kathmandu, Nepal",
+  locationUrl: "",
+  phone: "+977-1-XXXXXXX",
+  email: "info@restro53.com"
+};
+
+const defaultItems = [
+  {id:1,name:"Steamed Chicken Momo",cat:"momo",price:280,desc:"Juicy handmade chicken dumplings served with house-made tomato achaar.",img:"https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=600&q=80",spice:1,veg:false,chef:true,popular:true,isNew:false,prep:20},
+  {id:2,name:"Steamed Veg Momo",cat:"momo",price:220,desc:"Delicate vegetable-stuffed dumplings, lightly seasoned with herbs and spices.",img:"https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=600&q=80",spice:1,veg:true,chef:false,popular:true,isNew:false,prep:20},
+  {id:3,name:"Fried Buff Momo",cat:"momo",price:300,desc:"Crispy golden-fried buffalo meat momos served with a fiery dipping sauce.",img:"https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=600&q=80",spice:2,veg:false,chef:false,popular:false,isNew:false,prep:25},
+  {id:4,name:"C-Momo (Chilli Momo)",cat:"momo",price:320,desc:"Pan-tossed momos in a tangy chilli sauce with capsicum and onions.",img:"https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=600&q=80",spice:3,veg:false,chef:true,popular:true,isNew:false,prep:25},
+  {id:5,name:"Dal Bhat Set",cat:"rice",price:350,desc:"Traditional Nepali thali with lentil soup, steamed rice, seasonal vegetables, pickle, and papad.",img:"https://images.unsplash.com/photo-1574484284002-952d92456975?auto=format&fit=crop&w=600&q=80",spice:1,veg:true,chef:true,popular:true,isNew:false,prep:30},
+  {id:6,name:"Chicken Fried Rice",cat:"rice",price:280,desc:"Wok-tossed basmati rice with chicken, egg, and fresh vegetables in soy sauce.",img:"https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=600&q=80",spice:1,veg:false,chef:false,popular:true,isNew:false,prep:20},
+  {id:7,name:"Veg Fried Rice",cat:"rice",price:220,desc:"Fragrant fried rice loaded with garden vegetables and a hint of sesame.",img:"https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=600&q=80",spice:0,veg:true,chef:false,popular:false,isNew:false,prep:20},
+  {id:8,name:"Chicken Chow Mein",cat:"noodles",price:260,desc:"Stir-fried noodles with tender chicken strips, cabbage, and spring onions.",img:"https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=600&q=80",spice:1,veg:false,chef:false,popular:true,isNew:false,prep:15},
+  {id:9,name:"Veg Thukpa",cat:"soup",price:230,desc:"Hearty Tibetan noodle soup with fresh vegetables in a rich flavored broth.",img:"https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?auto=format&fit=crop&w=600&q=80",spice:1,veg:true,chef:true,popular:false,isNew:false,prep:20},
+  {id:10,name:"Chicken Thukpa",cat:"soup",price:270,desc:"Soul-warming noodle soup with shredded chicken and garden herbs.",img:"https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?auto=format&fit=crop&w=600&q=80",spice:2,veg:false,chef:false,popular:true,isNew:false,prep:20},
+  {id:11,name:"Aloo Chop",cat:"snacks",price:120,desc:"Crispy potato patties spiced with cumin and coriander, served with chutney.",img:"https://images.unsplash.com/photo-1574894709920-11b28e7367e3?auto=format&fit=crop&w=600&q=80",spice:1,veg:true,chef:false,popular:false,isNew:false,prep:10},
+  {id:12,name:"Spring Roll",cat:"snacks",price:150,desc:"Golden fried rolls stuffed with seasoned cabbage and vegetables.",img:"https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80",spice:0,veg:true,chef:false,popular:false,isNew:false,prep:12},
+  {id:13,name:"Masala Tea",cat:"hot-beverages",price:60,desc:"Aromatic Nepali-style milk tea brewed with ginger, cardamom and spices.",img:"https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=600&q=80",spice:0,veg:true,chef:false,popular:true,isNew:false,prep:5},
+  {id:14,name:"Cold Coffee",cat:"cold-beverages",price:180,desc:"Chilled blended coffee with milk and a hint of vanilla. Refreshing anytime.",img:"https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80",spice:0,veg:true,chef:false,popular:false,isNew:true,prep:5},
+];
+
+function loadData(){
+  try{
+    const cats = localStorage.getItem('r53_cats');
+    const items = localStorage.getItem('r53_items');
+    const socialQR = localStorage.getItem('r53_socialQR');
+    const contactInfo = localStorage.getItem('r53_contactInfo');
+    return {
+      categories: cats ? JSON.parse(cats) : defaultCategories,
+      items: items ? JSON.parse(items) : defaultItems,
+      socialQR: socialQR ? JSON.parse(socialQR) : defaultSocialQR,
+      contactInfo: contactInfo ? JSON.parse(contactInfo) : defaultContactInfo
+    };
+  }catch(e){return{categories:defaultCategories,items:defaultItems,socialQR:defaultSocialQR,contactInfo:defaultContactInfo}}
+}
+
+function saveData(cats,items,social,contact){
+  try{
+    localStorage.setItem('r53_cats',JSON.stringify(cats));
+    localStorage.setItem('r53_items',JSON.stringify(items));
+    if(social){
+      localStorage.setItem('r53_socialQR',JSON.stringify(social));
+    }
+    if(contact){
+      localStorage.setItem('r53_contactInfo',JSON.stringify(contact));
+    }
+  }catch(e){}
+}
+
+let {categories,items,socialQR,contactInfo} = loadData();
+let activeFilter = 'all';
+let activeCat = 'all';
+let nextId = Math.max(...items.map(i=>i.id),0)+1;
+
+// ══════════════════════════════════════════════════════
+// CUSTOMER RENDER
+// ══════════════════════════════════════════════════════
+function spicyLabel(n){
+  if(n===0)return '';
+  const labels=['','Mild 🌶','Medium 🌶🌶','Hot 🌶🌶🌶'];
+  const cls=['','badge-spicy1','badge-spicy2','badge-spicy3'];
+  return `<span class="badge ${cls[n]}">${labels[n]}</span>`;
+}
+
+function renderCatTabs(){
+  const nav = document.getElementById('cat-nav-tabs');
+  nav.innerHTML = '';
+  const wrap = document.createElement('div');
+  wrap.className = 'btn-group';
+  const allBtn = document.createElement('button');
+  allBtn.className = 'btn-group__item' + (activeCat==='all' ? ' btn-group__item--active' : '');
+  allBtn.textContent = 'All';
+  allBtn.onclick = function(){ setCat('all', this); };
+  wrap.appendChild(allBtn);
+  categories.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'btn-group__item' + (activeCat===c.id ? ' btn-group__item--active' : '');
+    btn.textContent = c.name;
+    btn.onclick = function(){ setCat(c.id, this); };
+    wrap.appendChild(btn);
+  });
+  nav.appendChild(wrap);
+}
+
+function renderCategoryGrid(){
+  const grid = document.getElementById('category-grid');
+  grid.innerHTML = categories.map(c=> {
+    const catItems = items.filter(i=>i.cat===c.id);
+    const firstItemImg = catItems.length > 0 ? catItems[0].img : '';
+    const categoryImg = c.img || firstItemImg;
+    return `
+    <div class="cat-card" onclick="selectCategory('${c.id}')">
+      ${categoryImg ? `<img src="${categoryImg}" alt="${c.name}" onerror="this.style.display='none'">` : `<div class="cat-card-fallback"></div>`}
+      <div class="cat-overlay"></div>
+      <div class="cat-content">
+        <div>
+          <div class="cat-name">${c.name}</div>
+        </div>
+      </div>
+    </div>
+  `}).join('');
+}
+
+function selectCategory(catId){
+  activeCat = catId;
+  document.getElementById('category-selection').style.display = 'none';
+  document.getElementById('menu-main').style.display = 'block';
+  document.getElementById('back-nav').style.display = 'block';
+  renderMenu();
+}
+
+function showCategories(){
+  document.getElementById('category-selection').style.display = 'block';
+  document.getElementById('menu-main').style.display = 'none';
+  document.getElementById('back-nav').style.display = 'none';
+  activeCat = 'all';
+}
+
+function renderMenu(){
+  let filtered = items.filter(item=>item.cat===activeCat);
+
+  const main = document.getElementById('menu-main');
+
+  if(filtered.length===0){
+    main.innerHTML = `<div class="no-results"><svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><p style="font-size:0.95rem;font-weight:500">No dishes found</p><p style="font-size:0.82rem;margin-top:4px">Try a different category</p></div>`;
+    return;
+  }
+
+  const catObj = categories.find(c=>c.id===activeCat);
+  let html = `<div class="section-title">${catObj.name}</div>`;
+  html += `<div class="menu-grid">`;
+  filtered.forEach(item=>{ html += menuCard(item); });
+  html += `</div>`;
+  main.innerHTML = html;
+}
+
+function menuCard(item){
+  const imgEl = item.img
+    ? `<div style="position:relative"><img class="card-img" src="${item.img}" alt="${item.name}" onerror="this.style.display='none';this.nextSibling.style.display='flex'"><div class="card-img-placeholder" style="display:none">🍽</div>`
+    : `<div style="position:relative"><div class="card-img-placeholder">🍽</div>`;
+
+  const topBadges = [];
+  if(item.chef) topBadges.push(`<span class="badge badge-chef">👨‍🍳 Chef's Pick</span>`);
+  if(item.popular) topBadges.push(`<span class="badge badge-popular">🔥 Popular</span>`);
+  if(item.isNew) topBadges.push(`<span class="badge badge-new">✨ New</span>`);
+
+  return `
+  <div class="menu-card" onclick="openModal(${item.id})">
+    ${imgEl}
+    ${topBadges.length ? `<div class="img-badge">${topBadges.join('')}</div>` : ''}
+    </div>
+    <div class="card-body">
+      <div class="card-top">
+        <h3 class="card-name">${item.name}</h3>
+        <span class="card-price">रू ${item.price}</span>
+      </div>
+      <p class="card-desc">${item.desc||''}</p>
+      <div class="card-badges">
+        <span class="badge ${item.veg?'badge-veg':'badge-nonveg'}">${item.veg?'🥦 Veg':'🍗 Non-Veg'}</span>
+        ${spicyLabel(item.spice||0)}
+        ${item.prep?`<span class="prep-time"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>${item.prep} min</span>`:''}
+      </div>
+    </div>
+  </div>`;
+}
+
+
+// ── Modal ──
+function openModal(id){
+  const item = items.find(i=>i.id===id);
+  if(!item)return;
+  const spicyLabels=['Not Spicy','Mild 🌶','Medium 🌶🌶','Hot 🌶🌶🌶'];
+  const catObj = categories.find(c=>c.id===item.cat);
+  document.getElementById('modal-content').innerHTML = `
+    <button class="modal-close" onclick="document.getElementById('item-modal').classList.remove('open')">✕</button>
+    ${item.img?`<img class="modal-img" src="${item.img}" alt="${item.name}" onerror="this.style.display='none';this.nextSibling.style.display='flex'"><div class="modal-img-ph" style="display:none">🍽</div>`:`<div class="modal-img-ph">🍽</div>`}
+    <div class="modal-body">
+      <div class="modal-handle"></div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:0.5rem">
+        <h2 class="modal-name">${item.name}</h2>
+        <span class="modal-price">रू ${item.price}</span>
+      </div>
+      <p style="font-size:0.8rem;color:var(--gray500);margin-bottom:0.75rem">${catObj?catObj.emoji+' '+catObj.name:''}</p>
+      <p class="modal-desc">${item.desc||'A delicious dish crafted with fresh ingredients.'}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem">
+        <span class="badge ${item.veg?'badge-veg':'badge-nonveg'}">${item.veg?'🥦 Vegetarian':'🍗 Non-Vegetarian'}</span>
+        ${item.chef?'<span class="badge badge-chef">👨‍🍳 Chef\'s Pick</span>':''}
+        ${item.popular?'<span class="badge badge-popular">🔥 Popular</span>':''}
+        ${item.isNew?'<span class="badge badge-new">✨ New</span>':''}
+        ${item.spice?`<span class="badge badge-spicy${item.spice}">${spicyLabels[item.spice]}</span>`:''}
+        ${item.prep?`<span class="badge" style="background:var(--gray50);color:var(--gray500)">⏱ ${item.prep} min prep</span>`:''}
+      </div>
+    </div>`;
+  document.getElementById('item-modal').classList.add('open');
+}
+
+function closeModal(e){
+  if(e.target===document.getElementById('item-modal'))
+    document.getElementById('item-modal').classList.remove('open');
+}
+
+// ══════════════════════════════════════════════════════
+// ADMIN
+// ══════════════════════════════════════════════════════
+function showLogin(){
+  document.getElementById('customer-view').style.display='none';
+  document.getElementById('admin-view').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
+}
+
+function doLogin(){
+  const pw = document.getElementById('admin-password').value;
+  const subscribeOuter = document.querySelector('.subscribe-outer');
+  const errorMessage = document.querySelector('.error-message');
+  
+  if(pw===ADMIN_PASSWORD){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('admin-view').style.display='block';
+    renderAdminItems();
+    renderAdminCats();
+    populateCatSelect();
+    subscribeOuter.classList.remove('has-error');
+    errorMessage.classList.remove('is-active');
+  } else {
+    subscribeOuter.classList.add('has-error');
+    errorMessage.classList.add('is-active');
+    document.getElementById('admin-password').value = '';
+  }
+}
+
+function showCustomer(){
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('admin-view').style.display='none';
+  document.getElementById('customer-view').style.display='block';
+  document.getElementById('admin-password').value='';
+  document.getElementById('login-error').style.display='none';
+  showCategories();
+  renderCategoryGrid();
+}
+
+function switchAdminTab(tab,el){
+  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('panel-'+tab).classList.add('active');
+  if(tab==='items')renderAdminItems();
+  if(tab==='categories')renderAdminCats();
+  if(tab==='add-item'){resetItemForm();populateCatSelect();}
+  if(tab==='social'){
+    document.getElementById('f-instagram-qr').value = socialQR.instagram || '';
+    document.getElementById('f-tiktok-qr').value = socialQR.tiktok || '';
+  }
+  if(tab==='contact'){
+    document.getElementById('f-location').value = contactInfo.location || '';
+    document.getElementById('f-location-url').value = contactInfo.locationUrl || '';
+    document.getElementById('f-phone').value = contactInfo.phone || '';
+    document.getElementById('f-email').value = contactInfo.email || '';
+  }
+}
+
+function renderAdminItems(){
+  const con = document.getElementById('admin-item-list-container');
+  if(items.length===0){con.innerHTML='<p style="color:var(--gray500);font-size:0.88rem">No items yet. Add your first item!</p>';return;}
+  const grouped = categories.map(cat=>({cat,catItems:items.filter(i=>i.cat===cat.id)})).filter(g=>g.catItems.length>0);
+  let html='';
+  grouped.forEach(g=>{
+    html+=`<div style="margin-bottom:1.5rem"><p style="font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--gray500);margin-bottom:0.5rem">${g.cat.emoji} ${g.cat.name}</p><div class="admin-item-list">`;
+    g.catItems.forEach(item=>{
+      html+=`<div class="admin-item">
+        ${item.img?`<img class="admin-item-thumb" src="${item.img}" alt="${item.name}" onerror="this.style.display='none';this.nextSibling.style.display='flex'"><div class="admin-item-thumb-ph" style="display:none">🍽</div>`:`<div class="admin-item-thumb-ph">🍽</div>`}
+        <div class="admin-item-info">
+          <h4>${item.name}</h4>
+          <p>रू ${item.price} · ${item.veg?'Veg':'Non-Veg'}${item.chef?' · Chef\'s Pick':''}${item.popular?' · Popular':''}</p>
+        </div>
+        <div class="admin-item-actions">
+          <div class="btn-group">
+            <button class="btn-group__item btn-group__item--warning btn-group__item--sm" onclick="editItem(${item.id})">Edit</button>
+            <button class="btn-group__item btn-group__item--danger btn-group__item--sm" onclick="deleteItem(${item.id})">Delete</button>
+          </div>
+        </div>
+      </div>`;
+    });
+    html+='</div></div>';
+  });
+  con.innerHTML=html;
+}
+
+function renderAdminCats(){
+  const list = document.getElementById('admin-cat-list');
+  list.innerHTML = categories.map(c=>`
+    <div class="cat-item">
+      <span>${c.img ? `<img src="${c.img}" style="width:32px;height:32px;object-fit:cover;border-radius:6px;margin-right:8px;vertical-align:middle">` : ''}${c.name}</span>
+      <div class="btn-group"><button class="btn-group__item btn-group__item--danger btn-group__item--sm" onclick="deleteCat('${c.id}')">Remove</button></div>
+    </div>`).join('');
+}
+
+function populateCatSelect(){
+  const sel=document.getElementById('f-cat');
+  sel.innerHTML=categories.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
+}
+
+function saveItem(){
+  const name=document.getElementById('f-name').value.trim();
+  const cat=document.getElementById('f-cat').value;
+  const price=parseInt(document.getElementById('f-price').value);
+  if(!name||!cat||isNaN(price)){showToast('Please fill in name, category, and price.');return;}
+  const editId=document.getElementById('edit-item-id').value;
+  const payload={
+    name,cat,price,
+    desc:document.getElementById('f-desc').value.trim(),
+    img:document.getElementById('f-img').value.trim(),
+    spice:parseInt(document.getElementById('f-spice').value)||0,
+    veg:document.getElementById('f-veg').checked,
+    chef:document.getElementById('f-chef').checked,
+    popular:document.getElementById('f-popular').checked,
+    isNew:document.getElementById('f-new').checked,
+    prep:parseInt(document.getElementById('f-prep').value)||0,
+  };
+  if(editId){
+    const idx=items.findIndex(i=>i.id===parseInt(editId));
+    if(idx>-1){items[idx]={...items[idx],...payload};}
+    showToast('Item updated!');
+  } else {
+    payload.id=nextId++;
+    items.push(payload);
+    showToast('Item added!');
+  }
+  saveData(categories,items,socialQR,contactInfo);
+  resetItemForm();
+  renderAdminItems();
+}
+
+function editItem(id){
+  const item=items.find(i=>i.id===id);
+  if(!item)return;
+  populateCatSelect();
+  document.getElementById('edit-item-id').value=id;
+  document.getElementById('item-form-title').textContent='Edit Item';
+  document.getElementById('f-name').value=item.name;
+  document.getElementById('f-cat').value=item.cat;
+  document.getElementById('f-price').value=item.price;
+  document.getElementById('f-prep').value=item.prep||'';
+  document.getElementById('f-desc').value=item.desc||'';
+  document.getElementById('f-img').value=item.img||'';
+  document.getElementById('f-spice').value=item.spice||0;
+  document.getElementById('f-veg').checked=item.veg;
+  document.getElementById('f-chef').checked=item.chef;
+  document.getElementById('f-popular').checked=item.popular;
+  document.getElementById('f-new').checked=item.isNew;
+  // Switch to add-item panel
+  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.admin-tab')[2].classList.add('active');
+  document.getElementById('panel-add-item').classList.add('active');
+}
+
+function deleteItem(id){
+  if(!confirm('Delete this item?'))return;
+  items=items.filter(i=>i.id!==id);
+  saveData(categories,items,socialQR,contactInfo);
+  renderAdminItems();
+  showToast('Item deleted.');
+}
+
+function resetItemForm(){
+  document.getElementById('edit-item-id').value='';
+  document.getElementById('item-form-title').textContent='Add New Item';
+  ['f-name','f-price','f-prep','f-desc','f-img'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-spice').value='0';
+  ['f-veg','f-chef','f-popular','f-new'].forEach(id=>document.getElementById(id).checked=false);
+}
+
+function handleCatFileUpload(input){
+  if(input.files && input.files[0]){
+    const reader = new FileReader();
+    reader.onload = function(e){
+      document.getElementById('cat-img-preview').src = e.target.result;
+      document.getElementById('cat-img-preview').style.display = 'block';
+      document.getElementById('f-cat-img').value = e.target.result;
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function saveCategory(){
+  const name=document.getElementById('f-cat-name').value.trim();
+  const img=document.getElementById('f-cat-img').value.trim();
+  if(!name){showToast('Please enter a category name.');return;}
+  const id=name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+  if(categories.find(c=>c.id===id)){showToast('Category already exists.');return;}
+  categories.push({id,name,img});
+  saveData(categories,items,socialQR,contactInfo);
+  document.getElementById('f-cat-name').value='';
+  document.getElementById('f-cat-img').value='';
+  document.getElementById('cat-img-preview').style.display='none';
+  document.getElementById('cat-img-preview').src='';
+  document.getElementById('f-cat-file').value='';
+  renderAdminCats();
+  showToast('Category added!');
+}
+
+function deleteCat(id){
+  const count=items.filter(i=>i.cat===id).length;
+  if(count>0){showToast(`Cannot delete — ${count} item(s) use this category.`);return;}
+  if(!confirm('Delete this category?'))return;
+  categories=categories.filter(c=>c.id!==id);
+  saveData(categories,items,socialQR,contactInfo);
+  renderAdminCats();
+  showToast('Category deleted.');
+}
+
+function saveSocialQR(){
+  const instagram = document.getElementById('f-instagram-qr').value.trim();
+  const tiktok = document.getElementById('f-tiktok-qr').value.trim();
+  socialQR = {instagram, tiktok};
+  saveData(categories,items,socialQR,contactInfo);
+  renderSocialQR();
+  showToast('QR codes saved!');
+}
+
+function clearSocialQR(){
+  if(!confirm('Clear all QR codes?'))return;
+  socialQR = {instagram: '', tiktok: ''};
+  saveData(categories,items,socialQR,contactInfo);
+  document.getElementById('f-instagram-qr').value = '';
+  document.getElementById('f-tiktok-qr').value = '';
+  renderSocialQR();
+  showToast('QR codes cleared!');
+}
+
+function renderSocialQR(){
+  const instagramQR = document.getElementById('instagram-qr-display');
+  const tiktokQR = document.getElementById('tiktok-qr-display');
+  if(socialQR.instagram){
+    instagramQR.innerHTML = `<a href="${socialQR.instagram}" target="_blank" style="text-decoration:none"><div class="qr-box"><svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div></a>`;
+  } else {
+    instagramQR.innerHTML = `<div class="qr-box"><svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>`;
+  }
+  if(socialQR.tiktok){
+    tiktokQR.innerHTML = `<a href="${socialQR.tiktok}" target="_blank" style="text-decoration:none"><div class="qr-box"><svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></div></a>`;
+  } else {
+    tiktokQR.innerHTML = `<div class="qr-box"><svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></div>`;
+  }
+}
+
+function saveContactInfo(){
+  const location = document.getElementById('f-location').value.trim();
+  const locationUrl = document.getElementById('f-location-url').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  contactInfo = {location, locationUrl, phone, email};
+  saveData(categories,items,socialQR,contactInfo);
+  renderContactInfo();
+  showToast('Contact info saved!');
+}
+
+function renderContactInfo(){
+  const footerLocation = document.getElementById('footer-location');
+  const footerPhone = document.getElementById('footer-phone');
+  const footerEmail = document.getElementById('footer-email');
+  
+  if(contactInfo.locationUrl){
+    footerLocation.innerHTML = `<a href="${contactInfo.locationUrl}" target="_blank" style="color:var(--gray500);text-decoration:none">${contactInfo.location}</a>`;
+  } else {
+    footerLocation.textContent = contactInfo.location;
+  }
+  
+  footerPhone.textContent = contactInfo.phone;
+  footerEmail.textContent = contactInfo.email;
+}
+
+// ── Toast ──
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+// ── Init ──
+window.addEventListener('DOMContentLoaded',()=>{
+  renderCategoryGrid();
+  renderSocialQR();
+  renderContactInfo();
+});
+</script>
+</body>
+</html>
